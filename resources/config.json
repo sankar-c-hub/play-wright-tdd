@@ -1,0 +1,7 @@
+{
+    "url": "https://demowebshop.tricentis.com",
+    "browser": "Chrome",
+    "headless": false,
+    "ProjectName": "ubuntu setup prod",
+    "parallel": true
+}
