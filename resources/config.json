@@ -2,7 +2,8 @@
     "url": "https://demowebshop.tricentis.com",
     "browser": "Chrome",
     "headless": false,
-    "ProjectName": "ubuntu setup prod",
+    "projectname": "web automation using playwright javascript",
     "parallel": false
 
 }
+
