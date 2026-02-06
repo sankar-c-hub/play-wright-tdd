@@ -3,5 +3,6 @@
     "browser": "Chrome",
     "headless": false,
     "ProjectName": "ubuntu setup prod",
-    "parallel": true
+    "parallel": false
+
 }
