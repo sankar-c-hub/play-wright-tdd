@@ -8,7 +8,8 @@ const url = JsonUtility.getConfigValue('url');
 const browser = JsonUtility.getConfigValue('browser');
 const headless = JsonUtility.getConfigValue('headless');
 
-test('Verify login with valid credentials', async ({ page }, testInfo) => {
+test('@smoke @login @test001 Verify login with valid credentials', async ({ page }, testInfo) => {
+  // test steps
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -42,7 +43,7 @@ test('Verify login with valid credentials', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify error with invalid username', async ({ page }, testInfo) => {
+test('@smoke @sanity @login @test002 Verify error with invalid username', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -76,7 +77,7 @@ test('Verify error with invalid username', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify error with invalid password', async ({ page }, testInfo) => {
+test('@smoke @sanity @login @test003 Verify error with invalid password', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -110,7 +111,7 @@ test('Verify error with invalid password', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify login with blank username and password', async ({ page }, testInfo) => {
+test('@smoke @sanity @login @test004 Verify login with blank username and password', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -144,7 +145,7 @@ test('Verify login with blank username and password', async ({ page }, testInfo)
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify password masking', async ({ page }, testInfo) => {
+test('@smoke @sanity @login @test005 Verify password masking', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -178,7 +179,7 @@ test('Verify password masking', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify Show Password functionality', async ({ page }, testInfo) => {
+test('@smoke @login @test006 Verify Show Password functionality', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -212,7 +213,7 @@ test('Verify Show Password functionality', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify login button is disabled until credentials entered', async ({ page }, testInfo) => {
+test('@smoke @login @test007 Verify login button is disabled until credentials entered', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -246,7 +247,7 @@ test('Verify login button is disabled until credentials entered', async ({ page 
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify user redirection after logout', async ({ page }, testInfo) => {
+test('@smoke @login @test008 Verify user redirection after logout', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -280,7 +281,7 @@ test('Verify user redirection after logout', async ({ page }, testInfo) => {
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify case sensitivity in login credentials', async ({ page }, testInfo) => {
+test('@smoke @login @test009 Verify case sensitivity in login credentials', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -314,7 +315,7 @@ test('Verify case sensitivity in login credentials', async ({ page }, testInfo) 
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify Remember Me checkbox functionality', async ({ page }, testInfo) => {
+test('@smoke @login @test010 Verify Remember Me checkbox functionality', async ({ page }, testInfo) => {
   const demoPage = new DemoWebShopPage(page);
 
   await page.goto(url);
@@ -348,7 +349,7 @@ test('Verify Remember Me checkbox functionality', async ({ page }, testInfo) => 
   await ScreenshotUtil.capture(page, testInfo, 'gift Cards page screenshot');
 });
 
-test('Verify login with valid credentials orange hrm', async ({ page }, testInfo) => {
+test('@smoke @login @test011 Verify login with valid credentials orange hrm', async ({ page }, testInfo) => {
   await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
   await page.getByRole('textbox', { name: 'Username' }).click();
   await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
@@ -360,6 +361,4 @@ test('Verify login with valid credentials orange hrm', async ({ page }, testInfo
   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
   await ScreenshotUtil.capture(page, testInfo, 'Dashboard');
 });
-
-
 
