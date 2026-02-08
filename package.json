@@ -2,15 +2,14 @@
   "name": "play-wright-tdd",
   "version": "1.0.0",
   "private": true,
-
   "scripts": {
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui",
     "tag": "npx playwright test --grep",
     "report": "npx playwright show-report reports"
   },
-
   "devDependencies": {
+    "@lambdatest/playwright-driver": "^1.0.7",
     "@playwright/test": "^1.42.0"
   }
 }

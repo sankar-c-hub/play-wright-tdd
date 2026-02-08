@@ -1,9 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 import JsonUtility from './utils/json_utility.js';
+import { Lambda } from './utils/lambda.js';
 
 const browser = JsonUtility.getConfigValue('browser');
 const headless = JsonUtility.getConfigValue('headless');
 const parallel = JsonUtility.getConfigValue('parallel');
+const runOn = JsonUtility.getConfigValue('runOn'); 
 
 const timestamp = JsonUtility.getTimeStamp();
 const reportDir = `reports/${timestamp}`;
@@ -84,6 +86,9 @@ export default defineConfig({
   use: {
     trace: 'on-first-retry',
   },
+  projects:
+    runOn === 'lambdatest'
+      ? Lambda.getProjects(browser.toLowerCase())
+      : projectsMap[browser.toLowerCase()] || projectsMap.chrome,
 
-  projects: projectsMap[browser.toLowerCase()] || projectsMap.chrome,
 });

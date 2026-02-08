@@ -3,7 +3,8 @@
     "browser": "Chrome",
     "headless": false,
     "projectname": "web automation using playwright javascript",
-    "parallel": false
-
+    "parallel": false,
+    "_runOn_comment": "local or lambdatest",
+    "runOn": "local",
+    "lambdatest": "LT_USERNAME,LT_ACCESS_KEY"
 }
-
