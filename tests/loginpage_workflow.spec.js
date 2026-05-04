@@ -4,6 +4,7 @@ import JsonUtility from '../utils/json_utility.js'
 import { DemoWebShopPage } from '../pages/demo_web_shop_page.js';
 import ScreenshotUtil from '../utils/screenshot_util.js';
 import { Lambda } from '../utils/lambda.js';
+import { WishPage } from '../pages/wish_page.js';
 
 const url = JsonUtility.getConfigValue('url');
 const browser = JsonUtility.getConfigValue('browser');
@@ -19,7 +20,7 @@ test.describe('Homepage Functionality Tests', () => {
     await Lambda.setTestStatus(page, testInfo);
   });
 
-  test.only('@smoke @login @test001 Verify login with valid credentials', async ({ page }, testInfo) => {
+  test('@smoke @login @test001 Verify login with valid credentials', async ({ page }, testInfo) => {
     // test steps
     const demoPage = new DemoWebShopPage(page);
     await page.goto(url);
@@ -372,6 +373,32 @@ test.describe('Homepage Functionality Tests', () => {
     await ScreenshotUtil.capture(page, testInfo, 'Dashboard');
   });
 
-});
+  test('@smoke @login @test012 Verify the radio button functionality of Wish Page', async ({ page }, testInfo) => {
+    const wishPage = new WishPage(page);
 
+    await page.goto('https://testautomationpractice.blogspot.com/');
+
+    await wishPage.maleCheckbox.check();
+    await ScreenshotUtil.capture(page, testInfo, 'Male Checkbox');
+    expect(await wishPage.maleCheckbox.isChecked()).toBeTruthy();
+    expect(await wishPage.femaleCheckbox.isChecked()).toBeFalsy();
+
+    await wishPage.femaleCheckbox.check();
+    await ScreenshotUtil.capture(page, testInfo, 'Female Checkbox');
+    expect(await wishPage.femaleCheckbox.isChecked()).toBeTruthy();
+    expect(await wishPage.maleCheckbox.isChecked()).toBeFalsy();
+  });
+
+  test.only('@smoke @login @test013 Verify the iframe functionality of Wish Page', async ({ page }, testInfo) => {
+    const wishPage = new WishPage(page);  
+    await page.goto('https://demo.automationtesting.in/Register.html');  
+    await wishPage.switchToFrame.click();
+    await wishPage.frames.click();
+    await page.waitForTimeout(5000); // Wait for the frame to load
+    const frame = page.frameLocator(JsonUtility.getLocator('Wish Page', 'SingleFrameXPATH'));
+    await frame.getByLabel('First Name').fill('John');
+    await ScreenshotUtil.capture(page, testInfo, 'First Name in Frame');
+  });
+ 
+});
 

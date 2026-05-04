@@ -12,5 +12,12 @@
     "GiftCardsLinkXPATH": "(//a[contains(.,'Gift Cards')])[1]",
     "DefaultpagepageTitle": "",
     "messageLabeltext": ""
+  },
+  "Wish Page": {
+    "MaleCheckboxXPATH": "//input[@id='male']",
+    "FemaleCheckboxXPATH": "//input[@id='female']",
+    "SwitchToFrameXPATH": "//a[normalize-space()='SwitchTo']",
+    "FramesXPATH": "//a[normalize-space()='Frames']",
+    "SingleFrameXPATH": "//iframe[@id='singleframe']"
   }
 }
