@@ -447,7 +447,7 @@ test.describe('Homepage Functionality Tests', () => {
 
   });
 
-  test.only('@smoke @login @test015 Validate locating elements using various Playwright locators', async ({ page }, testInfo) => {
+  test('@smoke @login @test015 Validate locating elements using various Playwright locators', async ({ page }, testInfo) => {
     await page.goto("https://demoblaze.com/index.html")
 
     //creating element page.getByAltText()
@@ -460,6 +460,51 @@ test.describe('Homepage Functionality Tests', () => {
 
 
   });
+
+  test('@smoke @login @test016 Validate iframes elements using various Playwright locators', async ({ page }, testInfo) => {
+    await page.goto("https://ui.vision/demo/webtest/frames/");
+
+    const frame1 = page.frameLocator("frame[src='frame_1.html']");
+    await frame1.locator("input[name='mytext1']").fill("frame1");
+    await ScreenshotUtil.capture(page, testInfo, 'Filled text in iframe1');
+
+    const frame2 = page.frameLocator("frame[src='frame_2.html']");
+    await frame2.locator("input[name='mytext2']").fill("frame2");
+    await ScreenshotUtil.capture(page, testInfo, 'Filled text in iframe2');
+
+    const frame3 = page.frameLocator("frame[src='frame_3.html']");
+    await frame3.locator("input[name='mytext3']").fill("frame3");
+    await ScreenshotUtil.capture(page, testInfo, 'Filled text in iframe3');
+
+    const frame4 = page.frameLocator("frame[src='frame_4.html']");
+    await frame4.locator("input[name='mytext4']").fill("frame4");
+    await ScreenshotUtil.capture(page, testInfo, 'Filled text in iframe4');
+
+  });
+
+  test.only('@smoke @login @test017 Validate multiple tabs in playwright', async ({ page }, testInfo) => {
+
+    await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+    const [newPage] = await Promise.all([
+      page.waitForEvent('popup'),
+      page.locator("a:has-text('OrangeHRM, Inc')").click()
+    ]); 
+
+    const tabElement = await newPage.locator("img[src='/public/_resources/themes/orangehrm/dist/images/OrangeHRM_Logo.svg']");
+    await expect(tabElement).toBeVisible();
+    await ScreenshotUtil.capture(newPage, testInfo, 'New Tab with OrangeHRM Logo');
+
+    await page.bringToFront();
+    await page.locator("input[placeholder='Username']").fill("Admin");
+    await page.locator("input[placeholder='Password']").fill("admin123");
+    await page.locator("button[type='submit']").click();
+    const dashboardElement = await page.locator("p.oxd-userdropdown-name");
+    await expect(dashboardElement).toBeVisible();
+    await ScreenshotUtil.capture(page, testInfo, 'Dashboard after Login');
+  
+  });
+
+
 
 
 
