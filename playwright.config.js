@@ -70,6 +70,7 @@ const projectsMap = {
 
 export default defineConfig({
   testDir: './tests',
+  timeout: 20000,
   fullyParallel: parallel,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
