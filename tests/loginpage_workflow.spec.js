@@ -389,9 +389,9 @@ test.describe('Homepage Functionality Tests', () => {
     expect(await wishPage.maleCheckbox.isChecked()).toBeFalsy();
   });
 
-  test.only('@smoke @login @test013 Verify the iframe functionality of Wish Page', async ({ page }, testInfo) => {
-    const wishPage = new WishPage(page);  
-    await page.goto('https://demo.automationtesting.in/Register.html');  
+  test('@smoke @login @test013 Verify the iframe functionality of Wish Page', async ({ page }, testInfo) => {
+    const wishPage = new WishPage(page);
+    await page.goto('https://demo.automationtesting.in/Register.html');
     await wishPage.switchToFrame.click();
     await wishPage.frames.click();
     await page.waitForTimeout(5000); // Wait for the frame to load
@@ -399,6 +399,71 @@ test.describe('Homepage Functionality Tests', () => {
     await frame.getByLabel('First Name').fill('John');
     await ScreenshotUtil.capture(page, testInfo, 'First Name in Frame');
   });
- 
+
+  test('@smoke @login @test014 Verify successful login with valid credentials using CSS locators', async ({ page }, testInfo) => {
+    await page.goto("https://demoblaze.com/index.html")
+    await page.locator("a#login2").click();
+    await ScreenshotUtil.capture(page, testInfo, 'Login button in Home Page');
+    await page.locator("input#loginusername").fill("pavanol")
+    await ScreenshotUtil.capture(page, testInfo, 'Username Field');
+    await page.locator("input#loginpassword").fill("test@123");
+    await ScreenshotUtil.capture(page, testInfo, 'Password Field');
+    await page.locator("button[onclick='logIn()']").click();
+    await ScreenshotUtil.capture(page, testInfo, 'Login Button');
+    const logoutButton = await page.locator("a#logout2");
+    await expect(logoutButton).toBeVisible();
+    await ScreenshotUtil.capture(page, testInfo, 'Logout Button');
+  });
+
+  test('@smoke @login @test014 Verify successful login and capture list of the products', async ({ page }, testInfo) => {
+
+    await page.goto("https://demoblaze.com/index.html")
+    await page.locator("a#login2").click();
+    await ScreenshotUtil.capture(page, testInfo, 'Login button in Home Page');
+    await page.locator("input#loginusername").fill("pavanol")
+    await ScreenshotUtil.capture(page, testInfo, 'Username Field');
+    await page.locator("input#loginpassword").fill("test@123");
+    await ScreenshotUtil.capture(page, testInfo, 'Password Field');
+    await page.locator("button[onclick='logIn()']").click();
+    await ScreenshotUtil.capture(page, testInfo, 'Login Button');
+    const logoutButton = await page.locator("a#logout2");
+    await expect(logoutButton).toBeVisible();
+    await ScreenshotUtil.capture(page, testInfo, 'Logout Button');
+
+    const productsList = await page.$$("//h4/a");
+
+    let list = [];
+
+    for (const product of productsList) {
+      const text = await product.textContent();
+      if (text) {
+        list.push(text.trim());
+      }
+    }
+
+    const joinedText = list.join(", ");
+
+    await ScreenshotUtil.logText(testInfo, joinedText);
+
+  });
+
+  test.only('@smoke @login @test015 Validate locating elements using various Playwright locators', async ({ page }, testInfo) => {
+    await page.goto("https://demoblaze.com/index.html")
+
+    //creating element page.getByAltText()
+    const altElement = await page.getByAltText('First slide');
+    await expect(altElement).toBeVisible();
+
+    //creating element page.getByPlaceholder()
+    const palceHolderElement = await page.getByPlaceholder('Username');
+    await expect(palceHolderElement).toBeVisible()
+
+
+  });
+
+
+
+
+
 });
 
