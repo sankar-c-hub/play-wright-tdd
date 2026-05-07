@@ -1,0 +1,83 @@
+image: mcr.microsoft.com/playwright:v1.45.0-jammy
+
+stages:
+  - test
+
+# ============================================================
+# USER CONFIGURABLE VARIABLES
+# ============================================================
+variables:
+  RUN_BROWSER: "Chromium"   # chrome / firefox / webkit / all
+
+# ============================================================
+# COMMON SETUP
+# ============================================================
+.before_script_template: &before_script_template
+  - echo "Installing dependencies..."
+  - npm i
+
+# ============================================================
+# CHROME (Chromium)
+# ============================================================
+test_chromium:
+  stage: test
+
+  before_script:
+    - *before_script_template
+
+  script:
+    - echo "Running tests on Chromium"
+    - npx playwright test --project=chromium
+
+  rules:
+    - if: '$RUN_BROWSER == "chrome" || $RUN_BROWSER == "all"'
+
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 1 week
+
+# ============================================================
+# FIREFOX
+# ============================================================
+test_firefox:
+  stage: test
+
+  before_script:
+    - *before_script_template
+
+  script:
+    - echo "Running tests on Firefox"
+    - npx playwright test --project=firefox
+
+  rules:
+    - if: '$RUN_BROWSER == "firefox" || $RUN_BROWSER == "all"'
+
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 1 week
+
+# ============================================================
+# WEBKIT (Safari engine)
+# ============================================================
+test_webkit:
+  stage: test
+
+  before_script:
+    - *before_script_template
+
+  script:
+    - echo "Running tests on WebKit"
+    - npx playwright test --project=webkit
+
+  rules:
+    - if: '$RUN_BROWSER == "webkit" || $RUN_BROWSER == "all"'
+
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 1 week
